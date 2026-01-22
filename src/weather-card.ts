@@ -33,7 +33,6 @@ export class WeatherCard extends LitElement {
     if(this.lat !== null && this.lon !== null){
       coords = { lat: this.lat, lon: this.lon };
       const place = await reverseGeocoding(coords);
-      console.log(place)
       this.city = place.address.city;
     }else{
       coords = this.cityCoord["valencia"];
