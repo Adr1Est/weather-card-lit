@@ -6,8 +6,11 @@ import { fetchWeather } from '@/services/fetchWeather';
 @customElement('weather-card')
 export class WeatherCard extends LitElement {
 
-  @property({ type: String })
-  public city: string = '';
+  @property({ type: Number })
+  public lat!: number;
+  @property({ type: Number })
+  public lon!: number;
+
   @state()
   protected weatherCode: number = 0;
   @state()
@@ -22,11 +25,18 @@ export class WeatherCard extends LitElement {
   };
 
   async loadData(){
-    const coords = this.cityCoord[this.city.toLowerCase()];
+    let coords;
+
+    if(this.lat !== null && this.lon !== null){
+      coords = { lat: this.lat, lon: this.lon };
+    }else{
+      coords = this.cityCoord["madrid"];
+    }
+
     if(!coords) {
       this.weatherCode = 999;
-      this.temperature = 999;
-      this.apparentTemperature = 999;
+      this.temperature = NaN;
+      this.apparentTemperature = NaN;
       return;
     }
 
@@ -36,14 +46,17 @@ export class WeatherCard extends LitElement {
     this.apparentTemperature = data.apparent_temperature;
   }
 
-  connectedCallback(): void {
-    super.connectedCallback();
-    this.loadData(); 
+  protected updated(changedProps: Map<string, unknown>){
+    if( changedProps.has('lat') || changedProps.has('lon')){
+      if(this.lat !== null && this.lon !== null){
+        this.loadData();
+      }
+    }
   }
 
   render() {
     return html`
-      <h1>${this.city}</h1>
+      <h1></h1>
       
       <div class="mainInfo">
 
