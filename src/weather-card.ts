@@ -9,7 +9,7 @@ export class WeatherCard extends LitElement {
 
   render() {
     return html`
-      
+      <h1>${this.city}</h1>
     `
   }
 
