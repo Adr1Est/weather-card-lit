@@ -35,8 +35,8 @@ export class WeatherCard extends LitElement {
 
     if(!coords) {
       this.weatherCode = 999;
-      this.temperature = NaN;
-      this.apparentTemperature = NaN;
+      this.temperature = 999;
+      this.apparentTemperature = 999;
       return;
     }
 
