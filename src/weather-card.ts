@@ -79,6 +79,7 @@ export class WeatherCard extends LitElement {
       backdrop-filter: blur(3.3px);
       -webkit-backdrop-filter: blur(3.3px);
       border: 1px solid rgba(255, 255, 255, 0.03);
+      z-index: 1;
     }
 
     h1, p{
