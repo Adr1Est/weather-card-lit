@@ -48,10 +48,11 @@ export class WeatherCard extends LitElement {
       <div class="mainInfo">
 
         <ion-icon name=${codeToIcon(this.weatherCode)}></ion-icon>
-
-        <p class="degrees">${this.temperature}ºC</p>
-        <p class="info1">${codeToWeather(this.weatherCode)}</p>
-        <p class="info2">Sensación de ${this.apparentTemperature}ºC</p>
+        <div class="weatherInfo">
+          <p class="degrees">${this.temperature}ºC</p>
+          <p class="info1">${codeToWeather(this.weatherCode)}</p>
+          <p class="info2">Sensación de ${this.apparentTemperature}ºC</p>
+        </div>
       </div>
 
       <hr class="bar"/>
@@ -72,6 +73,7 @@ export class WeatherCard extends LitElement {
       padding: 10px;
       width: 20%;
       min-width: 230px;
+      max-width: 300px;
       gap: 10px;
     }
 
@@ -93,14 +95,21 @@ export class WeatherCard extends LitElement {
       width: 90%;
     }
     .degrees{
-     align-self: flex-end;
+     width: 100%;
+     text-align: right;
+     font-weight: 700;
      font-size: 1.5rem;
     }
     .info1{
+      width: 100%;
+      text-align: center;
       font-size: 1.2rem;
     }
     .info2{
       margin-top: 10px;
+      width: 100%;
+      text-align: center;
+      color: #38BDF8;
     }
 
     .bar{
