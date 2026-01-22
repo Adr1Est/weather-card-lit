@@ -2,6 +2,7 @@ import { LitElement, css, html } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import { codeToIcon, codeToWeather } from '@/utils/codeToText';
 import { fetchWeather } from '@/services/fetchWeather';
+import { reverseGeocoding } from './services/geolocation';
 
 @customElement('weather-card')
 export class WeatherCard extends LitElement {
@@ -11,7 +12,7 @@ export class WeatherCard extends LitElement {
   @property({ type: Number })
   public lon!: number;
   @property({ type: String})
-  public city: string = 'Madrid';
+  public city: string = 'Sin ubicación';
 
   @state()
   protected weatherCode: number = 0;
@@ -31,9 +32,11 @@ export class WeatherCard extends LitElement {
 
     if(this.lat !== null && this.lon !== null){
       coords = { lat: this.lat, lon: this.lon };
-      this.city = '¿?';
+      const place = await reverseGeocoding(coords);
+      console.log(place)
+      this.city = place.address.city;
     }else{
-      coords = this.cityCoord["madrid"];
+      coords = this.cityCoord["valencia"];
     }
 
     if(!coords) {
@@ -60,7 +63,7 @@ export class WeatherCard extends LitElement {
   render() {
     return html`
       <h1>${this.city}</h1>
-      
+
       <div class="mainInfo">
 
         <ion-icon name=${codeToIcon(this.weatherCode)}></ion-icon>
