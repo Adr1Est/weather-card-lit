@@ -1,17 +1,18 @@
 import { LitElement, css, html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { customElement, property, state } from 'lit/decorators.js'
+import { codeToIcon, codeToWeather } from '@/utils/codeToText';
 
 @customElement('weather-card')
 export class WeatherCard extends LitElement {
 
   @property({ type: String })
   public city: string = '';
-  @property({ type: Number })
-  public weatherCode: number = 0;
-  @property({ type: Number })
-  public temperature: number = 0;
-  @property({ type: Number })
-  public apparentTemperature: number = 0;
+  @state()
+  protected weatherCode: number = 2342;
+  @state()
+  protected temperature: number = 0;
+  @state()
+  protected apparentTemperature: number = 0;
 
   private cityCoord: Record<string, { lat: number; lon: number }> = {
     Madrid: { lat: 40.4168, lon: -3.7038 },
@@ -25,59 +26,10 @@ export class WeatherCard extends LitElement {
       
       <div class="mainInfo">
 
-        <ion-icon name=${
-          this.weatherCode === 0 
-          ? "sunny"
-          : this.weatherCode === 1 || this.weatherCode === 2 || this.weatherCode === 3 
-            ? "cloudy"
-            : this.weatherCode === 61 || 
-            this.weatherCode === 63 || 
-            this.weatherCode === 65 || 
-            this.weatherCode === 66 || 
-            this.weatherCode === 67 ||
-            this.weatherCode === 80 ||
-            this.weatherCode === 81 ||
-            this.weatherCode === 82
-              ? "rainy"
-              : this.weatherCode === 95 || this.weatherCode === 96 || this.weatherCode === 99
-                ? "thunderstorm"
-                : this.weatherCode === 71 ||
-                this.weatherCode === 73 || 
-                this.weatherCode === 75 ||
-                this.weatherCode === 77 ||
-                this.weatherCode === 85 ||
-                this.weatherCode === 86
-                  ? "snow"
-                  : "rocket"
-        }></ion-icon>
+        <ion-icon name=${codeToIcon(this.weatherCode)}></ion-icon>
 
         <p class="degrees">${this.temperature}ºC</p>
-        <p class="info1">
-          ${this.weatherCode === 0 
-            ? "Soleado"
-            : this.weatherCode === 1 || this.weatherCode === 2 || this.weatherCode === 3 
-              ? "Habrá nubes"
-              : this.weatherCode === 61 || 
-              this.weatherCode === 63 || 
-              this.weatherCode === 65 || 
-              this.weatherCode === 66 || 
-              this.weatherCode === 67 ||
-              this.weatherCode === 80 ||
-              this.weatherCode === 81 ||
-              this.weatherCode === 82
-                ? "Lluvioso"
-                : this.weatherCode === 95 || this.weatherCode === 96 || this.weatherCode === 99
-                  ? "Tormenta eléctrica"
-                  : this.weatherCode === 71 ||
-                  this.weatherCode === 73 || 
-                  this.weatherCode === 75 ||
-                  this.weatherCode === 77 ||
-                  this.weatherCode === 85 ||
-                  this.weatherCode === 86
-                    ? "Nieve"
-                    : "Aliens"
-          }
-        </p>
+        <p class="info1">${codeToWeather(this.weatherCode)}</p>
         <p class="info2">Sensación de ${this.apparentTemperature}ºC</p>
       </div>
 
