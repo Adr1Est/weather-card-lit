@@ -1,4 +1,4 @@
-const fetchWeather = async (lat: number, lon: number) => {
+const fetchWeather = async ({ lat, lon }: { lat: number, lon: number }) => {
   try {
     const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,precipitation,weather_code,cloud_cover&timezone=Europe%2FBerlin&forecast_days=3`);
     const data = await response.json();

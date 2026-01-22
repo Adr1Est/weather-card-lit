@@ -1,6 +1,7 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import { codeToIcon, codeToWeather } from '@/utils/codeToText';
+import { fetchWeather } from '@/services/fetchWeather';
 
 @customElement('weather-card')
 export class WeatherCard extends LitElement {
@@ -8,17 +9,37 @@ export class WeatherCard extends LitElement {
   @property({ type: String })
   public city: string = '';
   @state()
-  protected weatherCode: number = 2342;
+  protected weatherCode: number = 0;
   @state()
   protected temperature: number = 0;
   @state()
   protected apparentTemperature: number = 0;
 
   private cityCoord: Record<string, { lat: number; lon: number }> = {
-    Madrid: { lat: 40.4168, lon: -3.7038 },
-    Barcelona: { lat: 41.3851, lon: 2.1734 },
-    Valencia: { lat: 39.4699, lon: -0.3763 },
+    madrid: { lat: 40.4168, lon: -3.7038 },
+    barcelona: { lat: 41.3851, lon: 2.1734 },
+    valencia: { lat: 39.4699, lon: -0.3763 },
   };
+
+  async loadData(){
+    const coords = this.cityCoord[this.city.toLowerCase()];
+    if(!coords) {
+      this.weatherCode = 999;
+      this.temperature = 999;
+      this.apparentTemperature = 999;
+      return;
+    }
+
+    const data = await fetchWeather(coords);
+    this.weatherCode = data.weather_code;
+    this.temperature = data.temperature_2m;
+    this.apparentTemperature = data.apparent_temperature;
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.loadData(); 
+  }
 
   render() {
     return html`
