@@ -68,13 +68,17 @@ export class WeatherCard extends LitElement {
       display: flex;
       flex-direction: column;
       align-items: center;
-      border: 1px solid #f2f2f2;
-      border-radius: 20px;
       padding: 10px;
       width: 20%;
       min-width: 230px;
       max-width: 300px;
       gap: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      box-shadow: rgba(255, 255, 255, 0.35) 0px 5px 15px;
+      backdrop-filter: blur(3.3px);
+      -webkit-backdrop-filter: blur(3.3px);
+      border: 1px solid rgba(255, 255, 255, 0.03);
     }
 
     h1, p{
