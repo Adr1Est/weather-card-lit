@@ -111,13 +111,10 @@ export class WeatherCard extends LitElement {
 
     @media (prefers-color-scheme: light) {
       :host{
-        border: 1px solid #242424;
-      }
-      button {
-        background-color: #f9f9f9;
+        border: 1px solid #030712;
       }
       .bar{
-        border: 1px solid #242424;
+        border: 1px solid #030712;
       }
     }
   `
