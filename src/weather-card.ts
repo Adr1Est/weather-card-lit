@@ -10,6 +10,8 @@ export class WeatherCard extends LitElement {
   public lat!: number;
   @property({ type: Number })
   public lon!: number;
+  @property({ type: String})
+  public city: string = 'Madrid';
 
   @state()
   protected weatherCode: number = 0;
@@ -29,6 +31,7 @@ export class WeatherCard extends LitElement {
 
     if(this.lat !== null && this.lon !== null){
       coords = { lat: this.lat, lon: this.lon };
+      this.city = '¿?';
     }else{
       coords = this.cityCoord["madrid"];
     }
@@ -56,7 +59,7 @@ export class WeatherCard extends LitElement {
 
   render() {
     return html`
-      <h1></h1>
+      <h1>${this.city}</h1>
       
       <div class="mainInfo">
 
