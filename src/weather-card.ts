@@ -55,11 +55,11 @@ export class WeatherCard extends LitElement {
         </div>
       </div>
 
-      <hr class="bar"/>
+      <!--<hr class="bar"/>
 
       <div class="nextDaysContainer">
         <p>WIP</p>
-      </div>
+      </div>-->
     `
   }
 
